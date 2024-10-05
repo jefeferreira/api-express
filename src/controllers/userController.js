@@ -1,4 +1,5 @@
-import User from '../models/user.js'; 
+import User from '../models/user.js';
+import { generateToken } from '../utils/auth.js';
 
 export const registerUser = async (req, res) => {
   try {
@@ -7,7 +8,10 @@ export const registerUser = async (req, res) => {
     const userExists = await User.findOne({ $or: [{ username }, { email }] });
 
     if (userExists) {
-      const message = userExists.username === username ? 'Usuário já existe' : 'Email já existe';
+      const message =
+        userExists.username === username
+          ? 'User already exists'
+          : 'Email already exists';
       return res.status(400).json({ message });
     }
 
@@ -22,8 +26,8 @@ export const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error('Erro ao registrar usuário:', error);
-    return res.status(400).json({ message: 'Dados de usuário inválidos' });
+    console.error('Error registering user:', error);
+    return res.status(400).json({ message: 'Invalid user data' });
   }
 };
 
@@ -46,11 +50,10 @@ export const loginUser = async (req, res) => {
         });
       }
     }
-    
-    return res.status(401).json({ message: 'Credenciais inválidas' });
 
+    return res.status(401).json({ message: 'Invalid credentials' });
   } catch (error) {
-    console.log('Erro ao logar:', error);
-    res.status(500).json({ message: 'Erro no servidor' });
+    console.log('Error logging in:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };

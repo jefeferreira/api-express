@@ -1,12 +1,12 @@
 import express from 'express';
-import { protect } from '../middleware/authMiddleware.js'; // Certifique-se de usar a extensão .js
+import { protect } from '../middleware/authMiddleware.js';
 import {
   createItem,
   getItems,
   getItemById,
   updateItem,
   deleteItem,
-} from '../controllers/itemController.js'; // Certifique-se de usar a extensão .js
+} from '../controllers/itemController.js';
 
 const router = express.Router();
 

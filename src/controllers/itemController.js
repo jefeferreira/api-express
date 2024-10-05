@@ -1,4 +1,4 @@
-import Item from '../models/item.js'; // Certifique-se de usar a extensão .js
+import Item from '../models/item.js';
 
 export const createItem = async (req, res) => {
   try {
@@ -12,7 +12,7 @@ export const createItem = async (req, res) => {
     res.status(201).json(item);
   } catch (error) {
     console.error(error);
-    res.status(400).json({ message: 'Dados do item inválidos' });
+    res.status(400).json({ message: 'Invalid item data' });
   }
 };
 
@@ -22,7 +22,7 @@ export const getItems = async (req, res) => {
     res.json(items);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erro no servidor' });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -30,13 +30,13 @@ export const getItemById = async (req, res) => {
   try {
     const item = await Item.findOne({ _id: req.params.id, user: req.user._id });
     if (!item) {
-      return res.status(404).json({ message: 'Item não encontrado' });
+      return res.status(404).json({ message: 'Item not found' });
     }
 
     return res.json(item);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erro no servidor' });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -46,17 +46,17 @@ export const updateItem = async (req, res) => {
     const item = await Item.findOneAndUpdate(
       { _id: req.params.id, user: req.user._id },
       { name, description, price },
-      { new: true }
+      { new: true },
     );
 
     if (!item) {
-      return res.status(404).json({ message: 'Item não encontrado' });
+      return res.status(404).json({ message: 'Item not found' });
     }
 
     return res.json(item);
   } catch (error) {
     console.error(error);
-    res.status(400).json({ message: 'Dados do item inválidos' });
+    res.status(400).json({ message: 'Invalid item data' });
   }
 };
 
@@ -68,12 +68,12 @@ export const deleteItem = async (req, res) => {
     });
 
     if (!item) {
-      return res.status(404).json({ message: 'Item não encontrado' });
+      return res.status(404).json({ message: 'Item not found' });
     }
 
-    return res.json({ message: 'Item removido' });
+    return res.json({ message: 'Item removed' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Erro no servidor' });
+    res.status(500).json({ message: 'Server error' });
   }
 };

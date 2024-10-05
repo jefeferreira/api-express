@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user.js'; // Certifique-se de usar a extensão .js
+import User from '../models/user.js';
 
 const extractToken = (authHeader) => {
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -12,7 +12,7 @@ const protect = async (req, res, next) => {
   let token = extractToken(req.headers.authorization);
 
   if (!token) {
-    return res.status(401).json({ message: 'Não autorizado, sem token' });
+    return res.status(401).json({ message: 'Unauthorized, no token' });
   }
 
   try {
@@ -21,7 +21,7 @@ const protect = async (req, res, next) => {
     next();
   } catch (error) {
     console.error(error);
-    res.status(401).json({ message: 'Não autorizado, falha no token' });
+    res.status(401).json({ message: 'Unauthorized, token failure' });
   }
 };
 

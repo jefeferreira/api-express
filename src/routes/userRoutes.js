@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, loginUser } from '../controllers/userController.js'; // Certifique-se de usar a extensão .js
+import { registerUser, loginUser } from '../controllers/userController.js';
 
 const router = express.Router();
 
